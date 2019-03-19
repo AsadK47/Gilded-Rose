@@ -143,5 +143,3 @@ describe GildedRose do
     end
   end
 end
-
-#

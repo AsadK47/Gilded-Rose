@@ -122,5 +122,3 @@ You should watch it at some point this week, it's up to you when you do so. We r
 2. After you've done some serious work on the problem and would like to take your approach to the next level.
 
 [All The Little Things by Sandi Metz](https://www.youtube.com/watch?v=8bZh5LMaSmE)
-
-#
