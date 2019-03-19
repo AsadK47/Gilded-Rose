@@ -1,54 +1,54 @@
 class GildedRose
-
   def initialize(items)
     @items = items
   end
 
-  def update_quality
+  def item_quality
     @items.each do |item|
-      if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
-        if item.quality > 0
-          if item.name != "Sulfuras, Hand of Ragnaros"
-            item.quality = item.quality - 1
-          end
-        end
+      if item.sell_in == 0
+        item.quality -= 2 unless item.quality == 0
       else
-        if item.quality < 50
-          item.quality = item.quality + 1
-          if item.name == "Backstage passes to a TAFKAL80ETC concert"
-            if item.sell_in < 11
-              if item.quality < 50
-                item.quality = item.quality + 1
-              end
-            end
-            if item.sell_in < 6
-              if item.quality < 50
-                item.quality = item.quality + 1
-              end
-            end
-          end
-        end
+        item.quality -= 1 unless item.quality == 0
       end
-      if item.name != "Sulfuras, Hand of Ragnaros"
-        item.sell_in = item.sell_in - 1
-      end
-      if item.sell_in < 0
-        if item.name != "Aged Brie"
-          if item.name != "Backstage passes to a TAFKAL80ETC concert"
-            if item.quality > 0
-              if item.name != "Sulfuras, Hand of Ragnaros"
-                item.quality = item.quality - 1
-              end
-            end
-          else
-            item.quality = item.quality - item.quality
-          end
-        else
-          if item.quality < 50
-            item.quality = item.quality + 1
-          end
-        end
+      item.sell_in -= 1 unless item.sell_in == 0
+    end
+  end
+
+  def brie_quality
+    @items.each do |item|
+      return if item.quality >= 50
+      item.quality += 1
+      item.quality += 1 if item.sell_in <= 0 && item.quality < 48
+    end
+  end
+
+  def backstage_pass_quality
+    @items.each do |item|
+      return if item.quality >= 50 && item.sell_in > 0
+      item.quality += 1
+      item.quality += 1 if item.sell_in < 11 && item.quality < 50
+      item.quality += 1 if item.sell_in < 6 && item.quality < 50
+      if item.sell_in == 0
+        item.quality = 0
       end
     end
   end
+
+  def sulfuras_quality
+  end
+
+  def update_quality
+    @items.each do |item|
+      if item.name == 'item'
+        item_quality
+      elsif item.name == 'Aged Brie'
+        brie_quality
+      elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
+        backstage_pass_quality
+      elsif item.name == "Sulfuras, Hand of Ragnaros"
+        sulfuras_quality
+      end
+    end
+  end
+
 end
