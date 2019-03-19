@@ -5,12 +5,11 @@ class GildedRose
 
   def item_quality
     @items.each do |item|
-      if item.sell_in == 0
-        item.quality -= 2 unless item.quality == 0
-      else
+      item.sell_in -= 1 
+      item.quality -= 1 unless item.quality == 0
+      if item.sell_in <= 0
         item.quality -= 1 unless item.quality == 0
       end
-      item.sell_in -= 1 unless item.sell_in == 0
     end
   end
 
