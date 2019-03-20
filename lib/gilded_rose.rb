@@ -15,7 +15,7 @@ class GildedRose
 
   def brie_quality
     @items.each do |item|
-      return if item.quality >= 50
+      return self if item.quality >= 50
 
       item.quality += 1
       item.quality += 1 if item.sell_in <= 0 && item.quality < 48
@@ -24,7 +24,7 @@ class GildedRose
 
   def backstage_pass_quality
     @items.each do |item|
-      return if item.quality >= 50 && item.sell_in > 0
+      return self if item.quality >= 50 && item.sell_in > 0
 
       item.quality += 1
       item.quality += 1 if item.sell_in < 11 && item.quality < 50
