@@ -1,6 +1,7 @@
 class GildedRose
   def initialize(items)
     @items = items
+    @list_of_items = { 'item' => method(:item_quality).to_proc, 'Aged Brie' => method(:brie_quality).to_proc, 'Backstage passes to a TAFKAL80ETC concert' => method(:backstage_pass_quality).to_proc, 'Sulfuras, Hand of Ragnaros' => method(:sulfuras_quality).to_proc }
   end
 
   def item_quality
@@ -39,17 +40,12 @@ class GildedRose
   end
 
   def update_quality
-    @items.each do |item|
-      if item.name == 'item'
-        item_quality
-      elsif item.name == 'Aged Brie'
-        brie_quality
-      elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
-        backstage_pass_quality
-      elsif item.name == "Sulfuras, Hand of Ragnaros"
-        sulfuras_quality
+    @list_of_items.each do |key, value|
+      @items.each do |item|
+        if item.name == key
+          value.call
+        end
       end
     end
   end
-
 end
